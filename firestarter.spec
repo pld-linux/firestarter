@@ -52,7 +52,6 @@ mv -f po/{no,nb}.po
 %{__automake}
 %configure
 %{__sed} -i 's/xml::\/etc\//xml::\$PREFIX\/etc\//' Makefile
-#sed -e s/xml::/xml::\$PREFIX/ Makefile > Makefile.new ; mv Makefile.new Makefile
 %{__make}
 
 %install
