@@ -72,5 +72,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/firestarter
 %{_desktopdir}/firestarter.desktop
 %{_pixmapsdir}/*
-%config(noreplace) %{_sysconfdir}/firestarter/*
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %{_sysconfdir}/%{name}/*
 %{_sysconfdir}/gconf/schemas/*
