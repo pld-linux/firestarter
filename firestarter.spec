@@ -1,7 +1,7 @@
 Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
-Version:	0.5.0
+Version:	0.7.1
 Release:	1
 License:	GPL
 Group:		X11/Applications/Networking
@@ -33,21 +33,20 @@ administrowania wraz z istniej±cymi regu³ami firewalla.
 
 %prep
 %setup -q
-
 %build
-gettextize --copy --force
-%configure
+%configure2_13
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	Productivitydir=%{_applnkdir}/System
+	Applicationsdir=%{_applnkdir}/System
 
 gzip -9nf README ChangeLog AUTHORS TODO CREDITS
 
-%find_lang %{name}
+%find_lang %{name} --with-gnome
 
 %clean
 rm -rf $RPM_BUILD_ROOT
