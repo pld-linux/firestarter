@@ -9,7 +9,8 @@
 +Name[es]=Firestarter
  Name[fr]=Firestaster
  Name[hu]=Firestarter
- Name[no]=Firestarter
+-Name[no]=Firestarter
++Name[nb]=Firestarter
 +Name[pt_BR]=Firestarter
  Name[sk]=Firestarter
  Name[sv]=Firestarter
@@ -29,7 +30,7 @@
  Comment[es]=Herramienta de cortafuegos Firestarter
 +Comment[fr]=Outil de pare-feu FireStarter
 +Comment[hu]=Linuxos tűzfalbeállító eszköz
-+Comment[no]=Firestarter brannveggverktøy
++Comment[nb]=Firestarter brannveggverktøy
 +Comment[pl]=Narzędzie do administrowania firewallem
 +Comment[pt_BR]=Ferramenta Firewall Firestarter
 +Comment[sk]=Nástroj pre firewall Firestarter
