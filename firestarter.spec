@@ -2,12 +2,13 @@ Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
 Version:	0.9.2
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
 # Source0-md5:	68b7b18663581fd20bb434cee4bbcc1a
 Patch0:		%{name}-acfix.patch
+Patch1:		%{name}-desktop.patch
 URL:		http://firestarter.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -35,8 +36,7 @@ administrowania wraz z istniej±cymi regu³ami firewalla.
 %prep
 %setup -q
 %patch0 -p1
-
-echo 'Categories=Utility;SystemSetup;' >> firestarter.desktop
+%patch1 -p1
 
 %build
 %{__libtoolize}
