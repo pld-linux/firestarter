@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
+# Source0-md5:	80e101dc3b5d8ba0f539e26d08ef829d
 URL:		http://firestarter.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
