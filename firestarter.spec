@@ -1,10 +1,12 @@
 Summary:	A GNOME firewall tool
 Name:		firestarter
 Version:	0.2.2
-Release:	1
+Release:	2
 License:	GPL
-Group:		Applications/Internet
-Source0:	http://download.sourceforge.com/firestarter/firestarter-%{version}.tar.gz
+Group:		X11/Applications/Networking
+Group(de):	X11/Applikationen/Netzwerkwesen
+Group(pl):	X11/Aplikacje/Sieciowe
+Source0:	http://download.sourceforge.com/firestarter/%{name}-%{version}.tar.gz
 URL:		http://firestarter.sourceforge.net/
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2.5
@@ -26,7 +28,6 @@ features with your old firewall scripts.
 
 %build
 gettextize --copy --force
-LDFLAGS="-s"; export LDFLAGS
 %configure
 
 %install
@@ -41,10 +42,10 @@ gzip -9nf README ChangeLog AUTHORS TODO CREDITS
 #%find_lang %{name}
 
 %clean
-rm -r $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
+#%files -f %{name}.lang
 %files
-# -f %{name}.lang
 %defattr(644,root,root,755)
 %doc *gz
 %attr(755,root,root) %{_bindir}/firestarter
