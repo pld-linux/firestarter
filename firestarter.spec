@@ -13,6 +13,8 @@ BuildRequires:	gnome-libs-devel >= 1.0.55
 Requires:	ipchains >= 1.3.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		_prefix		/usr/X11R6
+
 %description
 FireStarter is an easy-to-use, yet powerful, Linux firewall tool for
 GNOME. Use it to quickly set up a secure environment using the
