@@ -5,7 +5,7 @@ Version:	0.8.2
 Release:	1
 License:	GPL
 Group:		X11/Applications/Networking
-Source0:	ftp://download.sourceforge.net/pub/sourceforge/firestarter/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
 URL:		http://firestarter.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -16,7 +16,6 @@ BuildRequires:	gnome-libs-devel >= 1.0.55
 BuildRequires:	libtool
 Requires:	ipchains >= 1.3.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
 
 %description
 FireStarter is an easy-to-use, yet powerful, Linux firewall tool for
