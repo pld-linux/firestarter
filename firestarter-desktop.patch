@@ -6,7 +6,7 @@ diff -urN firestarter-0.9.3.orig/firestarter.desktop firestarter-0.9.3/firestart
  StartupNotify=true
  Terminal=false
 -Categories=System;Application;
-+Categories=GTK;GNOME;Utility;SystemSetup;
++Categories=GTK;GNOME;Utility;System;X-Administration;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=firestarter
 +# vi: encoding=utf-8
