@@ -5,8 +5,6 @@ Version:	0.7.1
 Release:	1
 License:	GPL
 Group:		X11/Applications/Networking
-Group(de):	X11/Applikationen/Netzwerkwesen
-Group(pl):	X11/Aplikacje/Sieciowe
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/firestarter/%{name}-%{version}.tar.gz
 URL:		http://firestarter.sourceforge.net/
 BuildRequires:	gettext-devel
