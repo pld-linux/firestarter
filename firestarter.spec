@@ -1,8 +1,8 @@
 Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
-Version:	0.9.2
-Release:	4
+Version:	0.9.3
+Release:	1	
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
@@ -10,6 +10,7 @@ Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
 Patch0:		%{name}-acfix.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-locale_names.patch
+Patch3:		%{name}-kdesu.patch
 URL:		http://firestarter.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -18,6 +19,7 @@ BuildRequires:	gtk+2-devel >= 2.0.0
 BuildRequires:	libgnome-devel >= 2.0.0
 BuildRequires:	libgnomeui-devel >= 2.0.0
 BuildRequires:	libtool
+BuildRequires:	sed >= 4.0
 Requires:	iptables
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -36,9 +38,10 @@ administrowania wraz z istniej±cymi regu³ami firewalla.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch0 -p0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p0
 
 mv -f po/{no,nb}.po
 
@@ -48,7 +51,8 @@ mv -f po/{no,nb}.po
 %{__autoconf}
 %{__automake}
 %configure
-
+%{__sed} -i 's/xml::\/etc\//xml::\$PREFIX\/etc\//' Makefile
+#sed -e s/xml::/xml::\$PREFIX/ Makefile > Makefile.new ; mv Makefile.new Makefile
 %{__make}
 
 %install
@@ -69,3 +73,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/firestarter
 %{_desktopdir}/firestarter.desktop
 %{_pixmapsdir}/*
+%config(noreplace) %{_sysconfdir}/firestarter/*
+%{_sysconfdir}/gconf/schemas/*
