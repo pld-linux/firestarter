@@ -8,14 +8,14 @@ Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
 # Source0-md5:	68b7b18663581fd20bb434cee4bbcc1a
 URL:		http://firestarter.sourceforge.net/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gettext-devel
-#BuildRequires:	gtk+-devel >= 1.2.5
-#BuildRequires:	gnome-core-devel
-#BuildRequires:	gnome-libs-devel >= 1.0.55
+BuildRequires:	gtk+2-devel >= 2.0.0
+BuildRequires:	libgnome-devel >= 2.0.0
+BuildRequires:	libgnomeui-devel >= 2.0.0
 BuildRequires:	libtool
-#Requires:	ipchains >= 1.3.9
+Requires:	iptables
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -41,6 +41,7 @@ rm -f missing
 %{__autoconf}
 %{__automake}
 %configure
+
 %{__make}
 
 %install
@@ -49,7 +50,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	Applicationsdir=%{_applnkdir}/System/Administration
-
 
 %find_lang %{name} --with-gnome
 
