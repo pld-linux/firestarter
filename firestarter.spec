@@ -37,7 +37,7 @@ administrowania wraz z istniej±cymi regu³ami firewalla.
 
 %build
 rm -f missing
-libtoolize --copy --force
+%{__libtoolize}
 aclocal -I macros
 %{__autoconf}
 %{__automake}
