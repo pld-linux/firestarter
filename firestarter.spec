@@ -7,10 +7,13 @@ License:	GPL
 Group:		X11/Applications/Networking
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/firestarter/%{name}-%{version}.tar.gz
 URL:		http://firestarter.sourceforge.net/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2.5
 BuildRequires:	gnome-core-devel
 BuildRequires:	gnome-libs-devel >= 1.0.55
+BuildRequires:	libtool
 Requires:	ipchains >= 1.3.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -31,8 +34,14 @@ administrowania wraz z istniej±cymi regu³ami firewalla.
 
 %prep
 %setup -q
+
 %build
-%configure2_13
+rm -f missing
+libtoolize --copy --force
+aclocal -I macros
+autoconf
+automake -a -c -f
+%configure
 %{__make}
 
 %install
@@ -40,7 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	Applicationsdir=%{_applnkdir}/System
+	Applicationsdir=%{_applnkdir}/System/Administration
 
 gzip -9nf README ChangeLog AUTHORS TODO CREDITS
 
@@ -53,5 +62,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *gz
 %attr(755,root,root) %{_bindir}/firestarter
-%{_applnkdir}/System/firestarter.desktop
+%{_applnkdir}/System/Administration/firestarter.desktop
 %{_pixmapsdir}/*
