@@ -49,4 +49,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc *gz
 %attr(755,root,root) %{_bindir}/firestarter
 %{_applnkdir}/System/firestarter.desktop
-%{_datadir}/pixmaps/*
+%{_pixmapsdir}/*
