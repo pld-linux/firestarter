@@ -1,0 +1,11 @@
+--- firestarter.desktop.in.orig	2004-08-26 17:46:23.182507344 +0200
++++ firestarter.desktop.in	2004-08-26 17:46:31.613225680 +0200
+@@ -1,7 +1,7 @@
+ [Desktop Entry]
+ _Name=Firestarter Firewall Tool
+ _Comment=Administer and supervise a firewall
+-Exec=firestarter
++Exec=kdesu firestarter
+ Icon=firestarter.png
+ Type=Application
+ Encoding=UTF-8
