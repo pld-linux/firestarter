@@ -51,7 +51,6 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	Applicationsdir=%{_applnkdir}/System/Administration
 
-gzip -9nf README ChangeLog AUTHORS TODO CREDITS
 
 %find_lang %{name} --with-gnome
 
@@ -60,7 +59,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc *gz
+%doc README ChangeLog AUTHORS TODO CREDITS
 %attr(755,root,root) %{_bindir}/firestarter
 %{_applnkdir}/System/Administration/firestarter.desktop
 %{_pixmapsdir}/*
