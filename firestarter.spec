@@ -6,7 +6,7 @@ Release:	1
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
-# Source0-md5:	68b7b18663581fd20bb434cee4bbcc1a
+# Source0-md5:	dd2475e0e1e09cfe676d1728011f0e22
 Patch0:		%{name}-acfix.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-locale_names.patch
