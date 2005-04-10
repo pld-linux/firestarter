@@ -2,7 +2,7 @@ Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
 Version:	1.0.3
-Release:	1	
+Release:	0.1	
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
@@ -61,14 +61,36 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	Applicationsdir=%{_desktopdir}
 
+install -d ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/
+install -d ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/configuration
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/events-filter-hosts
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/events-filter-ports
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/firestarter.sh
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/firewall
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/sysctl-tuning
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/user-pre
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/user-post
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/allow-from
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/allow-service
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/forward
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/setup
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/allow-from
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/allow-service
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/allow-to
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/deny-from
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/deny-service
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/deny-to
+touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/setup
+
 %find_lang %{name} --with-gnome
 
 %post
-%gconf_schema_install /etc/gconf/schemas/firestarter.schemas
+%gconf_schema_install firestarter.schemas
 
 %preun
 if [ $1 = 0 ]; then
-    %gconf_schema_uninstall /etc/gconf/schemas/firestarter.schemas
+    %gconf_schema_uninstall firestarter.schemas
 fi
 
 %clean
@@ -79,6 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README ChangeLog AUTHORS TODO CREDITS
 %attr(755,root,root) %{_bindir}/firestarter
 %{_desktopdir}/firestarter.desktop
+%{_datadir}/%{name}
 %{_pixmapsdir}/*
 %dir %{_sysconfdir}/%{name}
 %config(noreplace) %{_sysconfdir}/%{name}/*
