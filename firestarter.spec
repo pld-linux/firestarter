@@ -10,7 +10,6 @@ Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
 Patch0:		%{name}-acfix.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-locale_names.patch
-Patch3:		%{name}-kdesu.patch
 URL:		http://firestarter.sourceforge.net/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -39,9 +38,8 @@ administrowania wraz z istniej±cymi regu³ami firewalla.
 %prep
 %setup -q
 #%patch0 -p0 # really required?
-#%patch1 -p1
+%patch1 -p1
 %patch2 -p1
-#%patch3 -p0
 
 mv -f po/{no,nb}.po
 
@@ -87,11 +85,15 @@ touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/setup
 
 %post
 %gconf_schema_install firestarter.schemas
+%update_desktop_database_post
 
 %preun
 if [ $1 = 0 ]; then
     %gconf_schema_uninstall firestarter.schemas
 fi
+
+%postun 
+%update_desktop_database_postun
 
 %clean
 rm -rf $RPM_BUILD_ROOT
