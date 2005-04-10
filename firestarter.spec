@@ -1,3 +1,8 @@
+
+# todo:
+# - init.d file
+# - pam file
+
 Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
