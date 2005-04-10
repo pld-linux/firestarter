@@ -63,6 +63,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %find_lang %{name} --with-gnome
 
+%post
+%gconf_schema_install /etc/gconf/schemas/firestarter.schemas
+
+%preun
+if [ $1 = 0 ]; then
+    %gconf_schema_uninstall /etc/gconf/schemas/firestarter.schemas
+fi
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
