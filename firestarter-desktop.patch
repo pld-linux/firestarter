@@ -1,10 +1,10 @@
-diff -urN firestarter-0.9.3.orig/firestarter.desktop firestarter-0.9.3/firestarter.desktop
---- firestarter-0.9.3.orig/firestarter.desktop	2004-10-05 17:31:07.292019248 +0000
-+++ firestarter-0.9.3/firestarter.desktop	2004-10-05 17:32:02.357648000 +0000
-@@ -58,6 +58,7 @@
- Encoding=UTF-8
- StartupNotify=true
+diff -Nur firestarter-1.0.3.orig/firestarter.desktop.in firestarter-1.0.3/firestarter.desktop.in
+--- firestarter-1.0.3.orig/firestarter.desktop.in	2005-01-29 13:32:09.000000000 +0100
++++ firestarter-1.0.3/firestarter.desktop.in	2005-04-10 02:46:55.000000000 +0200
+@@ -7,6 +7,7 @@
  Terminal=false
+ Type=Application
+ StartupNotify=true
 -Categories=System;Application;
 +Categories=GTK;GNOME;Utility;System;X-Administration;
  X-GNOME-Bugzilla-Bugzilla=GNOME
