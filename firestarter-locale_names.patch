@@ -1,11 +1,11 @@
---- firestarter-0.9.3/configure.in.orig	2004-08-26 14:46:02.016574616 +0200
-+++ firestarter-0.9.3/configure.in	2004-08-26 14:46:22.330486432 +0200
-@@ -44,7 +44,7 @@
+--- firestarter-1.0.3.orig/configure.in	2005-01-29 13:32:09.000000000 +0100
++++ firestarter-1.0.3/configure.in	2005-04-10 02:16:17.000000000 +0200
+@@ -49,7 +49,7 @@
  AM_GCONF_SOURCE_2
  
  dnl i18n
--ALL_LINGUAS="az ca cs da de el en_CA en_GB es fi fr ga hr hu it ja ko lv ml nl no pa pl pt pt_BR ro ru sk sq sr sr@Latn sv tr uk vi zh_CN zh_TW"
-+ALL_LINGUAS="az ca cs da de el en_CA en_GB es fi fr ga hr hu it ja ko lv ml nl nb pa pl pt pt_BR ro ru sk sq sr sr@Latn sv tr uk vi zh_CN zh_TW"
+-ALL_LINGUAS="az ca cs da de el en_CA en_GB es fi fr ga hr hu it ja ko lv ml nb nl no pa pl pt pt_BR ro ru sk sq sr sr@Latn sv tr uk vi zh_CN zh_TW"
++ALL_LINGUAS="az ca cs da de el en_CA en_GB es fi fr ga hr hu it ja ko lv ml nb nl nb pa pl pt pt_BR ro ru sk sq sr sr@Latn sv tr uk vi zh_CN zh_TW"
  GETTEXT_PACKAGE=firestarter
  AC_SUBST(GETTEXT_PACKAGE)
  AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE",[Useful for glib-gettextize])
