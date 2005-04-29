@@ -1,17 +1,14 @@
 
-# todo:
-# - init.d file
-# - pam file
-
 Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
 Version:	1.0.3
-Release:	0.1	
+Release:	0.2
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
 # Source0-md5:	f46860a9e16dac4b693bd05f16370b03
+Source1:	%{name}.init
 Patch0:		%{name}-acfix.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-locale_names.patch
@@ -24,6 +21,7 @@ BuildRequires:	libgnome-devel >= 2.0.0
 BuildRequires:	libgnomeui-devel >= 2.0.0
 BuildRequires:	libtool
 BuildRequires:	sed >= 4.0
+Requires(post,preun):	/sbin/chkconfig
 Requires:	iptables
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -59,10 +57,15 @@ mv -f po/{no,nb}.po
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,pam.d}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	Applicationsdir=%{_desktopdir}
+
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/firestarter
+install firestarter.pam ${RPM_BUILD_ROOT}%{_sysconfdir}/pam.d/firestarter
+
 
 install -d ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/
 install -d ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/
@@ -91,10 +94,20 @@ touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/setup
 %post
 %gconf_schema_install firestarter.schemas
 %update_desktop_database_post
+/sbin/chkconfig --add firestarter
+if [ -f /var/lock/subsys/firestarter ]; then
+	/etc/rc.d/init.d/firestarter restart 1>&2
+else
+	echo "Run \"/etc/rc.d/init.d/firestarter start\" to start firestarter."
+fi
 
 %preun
 if [ $1 = 0 ]; then
     %gconf_schema_uninstall firestarter.schemas
+	if [ -f /var/lock/subsys/firestarter ]; then
+		/etc/rc.d/init.d/firestarter stop 1>&2
+	fi
+	/sbin/chkconfig --del firestarter
 fi
 
 %postun 
@@ -107,9 +120,23 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc README ChangeLog AUTHORS TODO CREDITS
 %attr(755,root,root) %{_bindir}/firestarter
+%attr(754,root,root) /etc/rc.d/init.d/*
+%{_sysconfdir}/pam.d/firestarter
 %{_desktopdir}/firestarter.desktop
 %{_datadir}/%{name}
 %{_pixmapsdir}/*
+
 %dir %{_sysconfdir}/%{name}
-%config(noreplace) %{_sysconfdir}/%{name}/*
+%dir %{_sysconfdir}/%{name}/inbound
+%dir %{_sysconfdir}/%{name}/outbound
+%attr(754,root,root) %{_sysconfdir}/%{name}/firestarter.sh
+%config(noreplace) %{_sysconfdir}/%{name}/inbound/*
+%config(noreplace) %{_sysconfdir}/%{name}/outbound/*
+%config(noreplace) %{_sysconfdir}/%{name}/configuration
+%config(noreplace) %{_sysconfdir}/%{name}/events-filter-*
+%config(noreplace) %{_sysconfdir}/%{name}/firewall
+%config(noreplace) %{_sysconfdir}/%{name}/non-routables
+%config(noreplace) %{_sysconfdir}/%{name}/sysctl-tuning
+%config(noreplace) %{_sysconfdir}/%{name}/user-*
+
 %{_sysconfdir}/gconf/schemas/*
