@@ -1,4 +1,3 @@
-
 Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
@@ -64,32 +63,34 @@ install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,pam.d}
 	Applicationsdir=%{_desktopdir}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/firestarter
-install firestarter.pam ${RPM_BUILD_ROOT}%{_sysconfdir}/pam.d/firestarter
+install firestarter.pam $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/firestarter
 
-
-install -d ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/
-install -d ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/configuration
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/events-filter-hosts
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/events-filter-ports
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/firestarter.sh
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/firewall
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/sysctl-tuning
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/user-pre
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/user-post
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/allow-from
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/allow-service
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/forward
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/inbound/setup
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/allow-from
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/allow-service
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/allow-to
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/deny-from
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/deny-service
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/deny-to
-touch ${RPM_BUILD_ROOT}/%{_sysconfdir}/firestarter/outbound/setup
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/inbound
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/configuration
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/events-filter-hosts
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/events-filter-ports
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/firestarter.sh
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/firewall
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/sysctl-tuning
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/user-pre
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/user-post
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/inbound/allow-from
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/inbound/allow-service
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/inbound/forward
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/inbound/setup
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/allow-from
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/allow-service
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/allow-to
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/deny-from
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/deny-service
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/deny-to
+touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/setup
 
 %find_lang %{name} --with-gnome
+
+%clean
+rm -rf $RPM_BUILD_ROOT
 
 %post
 %gconf_schema_install firestarter.schemas
@@ -113,15 +114,12 @@ fi
 %postun 
 %update_desktop_database_postun
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc README ChangeLog AUTHORS TODO CREDITS
 %attr(755,root,root) %{_bindir}/firestarter
 %attr(754,root,root) /etc/rc.d/init.d/*
-%{_sysconfdir}/pam.d/firestarter
+%config(noreplace) %verify(not md5 mtime size) /etc/pam.d/firestarter
 %{_desktopdir}/firestarter.desktop
 %{_datadir}/%{name}
 %{_pixmapsdir}/*
