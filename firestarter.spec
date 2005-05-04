@@ -2,7 +2,7 @@ Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
 Version:	1.0.3
-Release:	0.3
+Release:	0.4
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
@@ -113,7 +113,7 @@ if [ $1 = 0 ]; then
 	/sbin/chkconfig --del firestarter
 fi
 
-%postun 
+%postun
 %update_desktop_database_postun
 
 %files -f %{name}.lang
@@ -126,17 +126,17 @@ fi
 %{_datadir}/%{name}
 %{_pixmapsdir}/*
 
-%dir %{_sysconfdir}/%{name}
-%dir %{_sysconfdir}/%{name}/inbound
-%dir %{_sysconfdir}/%{name}/outbound
-%attr(754,root,root) %{_sysconfdir}/%{name}/firestarter.sh
-%config(noreplace) %{_sysconfdir}/%{name}/inbound/*
-%config(noreplace) %{_sysconfdir}/%{name}/outbound/*
-%config(noreplace) %{_sysconfdir}/%{name}/configuration
-%config(noreplace) %{_sysconfdir}/%{name}/events-filter-*
-%config(noreplace) %{_sysconfdir}/%{name}/firewall
-%config(noreplace) %{_sysconfdir}/%{name}/non-routables
-%config(noreplace) %{_sysconfdir}/%{name}/sysctl-tuning
-%config(noreplace) %{_sysconfdir}/%{name}/user-*
+%dir %attr(700,root,root) %{_sysconfdir}/%{name}
+%dir %attr(700,root,root) %{_sysconfdir}/%{name}/inbound
+%dir %attr(700,root,root) %{_sysconfdir}/%{name}/outbound
+%config(noreplace) %attr(700,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/firestarter.sh
+%config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/inbound/*
+%config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/outbound/*
+%config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/configuration
+%config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/events-filter-*
+%config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/firewall
+%config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/non-routables
+%config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/sysctl-tuning
+%config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/user-*
 
 %{_sysconfdir}/gconf/schemas/*
