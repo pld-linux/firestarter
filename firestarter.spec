@@ -59,6 +59,7 @@ mv -f po/{no,nb}.po
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/etc/{rc.d/init.d,pam.d}
+install -d $RPM_BUILD_ROOT%{_sbindir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
@@ -88,6 +89,17 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/deny-from
 touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/deny-service
 touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/deny-to
 touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/setup
+
+mv $RPM_BUILD_ROOT%{_bindir}/firestarter $RPM_BUILD_ROOT%{_sbindir}
+
+echo -e "#!/bin/sh
+if [ -x %{_bindir}/gnomesu ] ; then
+	gnomesu %{_sbindir}/firestarter
+elif [ -x %{_bindir}/kdesu ] ; then
+	kdesu %{_sbindir}/firestarter
+else
+	%{_sbindir}/firestarter
+fi" > $RPM_BUILD_ROOT%{_bindir}/firestarter
 
 %find_lang %{name} --with-gnome
 
@@ -120,12 +132,12 @@ fi
 %defattr(644,root,root,755)
 %doc README ChangeLog AUTHORS TODO CREDITS
 %attr(755,root,root) %{_bindir}/firestarter
+%attr(755,root,root) %{_sbindir}/firestarter
 %attr(754,root,root) /etc/rc.d/init.d/*
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/firestarter
 %{_desktopdir}/firestarter.desktop
 %{_datadir}/%{name}
 %{_pixmapsdir}/*
-
 %dir %attr(700,root,root) %{_sysconfdir}/%{name}
 %dir %attr(700,root,root) %{_sysconfdir}/%{name}/inbound
 %dir %attr(700,root,root) %{_sysconfdir}/%{name}/outbound
@@ -138,5 +150,4 @@ fi
 %config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/non-routables
 %config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/sysctl-tuning
 %config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/user-*
-
 %{_sysconfdir}/gconf/schemas/*
