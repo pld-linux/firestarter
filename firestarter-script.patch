@@ -1,5 +1,5 @@
---- firestarter-1.0.3/src/netfilter-script.c.orig	2005-01-29 13:32:08.000000000 +0100
-+++ firestarter-1.0.3/src/netfilter-script.c	2005-05-06 03:50:46.000000000 +0200
+--- firestarter-1.0.3/src/netfilter-script.c.orig	2005-05-06 14:08:24.000000000 +0200
++++ firestarter-1.0.3/src/netfilter-script.c	2005-05-06 14:20:33.000000000 +0200
 @@ -405,7 +405,7 @@
  			 "	$MPB ip_nat_irc 2> /dev/null\n"
  			 "fi\n");
@@ -9,3 +9,13 @@
  			 "	$MPB bsd_comp 2> /dev/null\n"
  			 "	$MPB ppp_deflate 2> /dev/null\n"
  			 "fi\n\n");
+@@ -768,6 +768,9 @@
+ 	                 "if [ \"$NAT\" = \"on\" ]; then\n"
+ 	                 "	$IPT -A INPUT -i $INIF -d $INIP -j INBOUND # Check LAN to firewall (private ip) traffic\n"
+ 	                 "	$IPT -A INPUT -i $INIF -d $IP -j INBOUND   # Check LAN to firewall (public ip) traffic\n"
++			 "	if [ \"$DHCP_SERVER\" = \"on\" ]; then	   # DHCP requests are permitted from internal network\n"
++			 "		$IPT -A INPUT -i $INIF -p udp --dport 67:68 -d 255.255.255.255 -j INBOUND\n"
++			 "	fi\n"
+ 			 "	if [ \"$INBCAST\" != \"\" ]; then\n"
+ 			 "		$IPT -A INPUT -i $INIF -d $INBCAST -j INBOUND # Check LAN to firewall broadcast traffic\n"
+ 			 "	fi\n"
