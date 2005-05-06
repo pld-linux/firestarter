@@ -1,0 +1,2 @@
+- moved to %{_sbindir} (requires root privileges)
+- workaround by script (FIXME, but IMO better than previous -kdesu patch)
