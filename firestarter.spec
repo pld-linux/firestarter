@@ -2,16 +2,15 @@ Summary:	A GNOME firewall tool
 Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
 Name:		firestarter
 Version:	1.0.3
-Release:	0.5
+Release:	1
 License:	GPL
 Group:		X11/Applications/Networking
 Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
 # Source0-md5:	f46860a9e16dac4b693bd05f16370b03
 Source1:	%{name}.init
-Patch0:		%{name}-acfix.patch
-Patch1:		%{name}-desktop.patch
-Patch2:		%{name}-locale_names.patch
-Patch3:		%{name}-script.patch
+Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-locale_names.patch
+Patch2:		%{name}-script.patch
 URL:		http://www.fs-security.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -42,10 +41,9 @@ administrowania wraz z istniej±cymi regu³ami firewalla.
 
 %prep
 %setup -q
-#%patch0 -p0 # really required?
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 mv -f po/{no,nb}.po
 
