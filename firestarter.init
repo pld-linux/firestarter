@@ -82,7 +82,6 @@ case "$1" in
                 fi
                 ok
 	else
-		# show "%s service is not running." firestarter
 		msg_not_running firestarter >&2
 		RETVAL=7
 	fi
