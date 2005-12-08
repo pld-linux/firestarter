@@ -5,7 +5,7 @@
 # chkconfig:	2345 11 89
 #
 # description:	Starts and stops FireStarter, an easy-to-use,
-#       yet powerful, Linux firewall tool for GNOME. 
+#       yet powerful, Linux firewall tool for GNOME.
 #
 # $Id$
 
@@ -38,7 +38,7 @@ case "$1" in
                 busy
 		$FS_CONTROL start > /dev/null
 		RETVAL=$?
-                if [ $RETVAL -eq 0 ]; then 
+                if [ $RETVAL -eq 0 ]; then
                     touch /var/lock/subsys/firestarter
                     ok
                 else
@@ -70,13 +70,13 @@ case "$1" in
                 busy
                 $FS_CONTROL stop > /dev/null
 		RETVAL=$?
-                if [ ! $RETVAL -eq 0 ]; then 
+                if [ ! $RETVAL -eq 0 ]; then
                     fail
                     exit $RETVAL
                 fi
 		$FS_CONTROL start > /dev/null
 		RETVAL=$?
-                if [ ! $RETVAL -eq 0 ]; then 
+                if [ ! $RETVAL -eq 0 ]; then
                     fail
                     exit $RETVAL
                 fi
