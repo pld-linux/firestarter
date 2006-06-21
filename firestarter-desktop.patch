@@ -1,7 +1,13 @@
 diff -Nur firestarter-1.0.3.orig/firestarter.desktop.in firestarter-1.0.3/firestarter.desktop.in
---- firestarter-1.0.3.orig/firestarter.desktop.in	2005-01-29 13:32:09.000000000 +0100
-+++ firestarter-1.0.3/firestarter.desktop.in	2005-04-10 02:46:55.000000000 +0200
-@@ -7,6 +7,7 @@
+--- firestarter-1.0.3.orig/firestarter.desktop.in	2005-01-29 12:32:09.000000000 +0000
++++ firestarter-1.0.3/firestarter.desktop.in	2006-06-21 17:59:40.000000000 +0100
+@@ -2,11 +2,12 @@
+ Encoding=UTF-8
+ _Name=Firestarter
+ _Comment=Desktop Firewall Tool
+-Exec=firestarter
++Exec=gksudo -g firestarter
+ Icon=firestarter.png
  Terminal=false
  Type=Application
  StartupNotify=true
