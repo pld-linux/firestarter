@@ -24,7 +24,6 @@ BuildRequires:	pkgconfig
 BuildRequires:	sed >= 4.0
 Requires(post,preun):	/sbin/chkconfig
 Requires:	iptables
-Requires:	gksu
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -94,8 +93,8 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/setup
 mv $RPM_BUILD_ROOT%{_bindir}/firestarter $RPM_BUILD_ROOT%{_sbindir}
 
 echo -e "#!/bin/sh
-if [ -x %{_bindir}/gnomesu ] ; then
-	gnomesu %{_sbindir}/firestarter
+if [ -x %{_bindir}/gksudo ] ; then
+	gksudo -g %{_sbindir}/firestarter
 elif [ -x %{_bindir}/kdesu ] ; then
 	kdesu %{_sbindir}/firestarter
 else
