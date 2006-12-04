@@ -9,6 +9,15 @@
  			 "	$MPB bsd_comp 2> /dev/null\n"
  			 "	$MPB ppp_deflate 2> /dev/null\n"
  			 "fi\n\n");
+@@ -586,7 +586,7 @@
+ 			 "		$IPT -t mangle -A OUTPUT -p tcp -j TOS --dport 8080 --set-tos $TOSOPT\n"
+ 			 "	fi\n");
+ 
+-	fprintf (script, "	if [ \"$TOS_SERVER\" = \"on\" -a $mangle_supported ]; then\n"
++	fprintf (script, "	if [ \"$TOS_X\" = \"on\" -a $mangle_supported ]; then\n"
+ 			 "		# ToS: The X Window System\n"
+ 			 "		$IPT -t mangle -A OUTPUT -p tcp -j TOS --dport 22 --set-tos 0x10\n"
+ 			 "		$IPT -t mangle -A OUTPUT -p tcp -j TOS --dport 6000:6015 --set-tos 0x08\n"
 @@ -768,6 +768,9 @@
  	                 "if [ \"$NAT\" = \"on\" ]; then\n"
  	                 "	$IPT -A INPUT -i $INIF -d $INIP -j INBOUND # Check LAN to firewall (private ip) traffic\n"
