@@ -1,0 +1,30 @@
+--- firestarter-1.0.3/src/netfilter-script.c.orig	2005-05-06 14:08:24.000000000 +0200
++++ firestarter-1.0.3/src/netfilter-script.c	2005-05-06 14:20:33.000000000 +0200
+@@ -405,7 +405,7 @@
+ 			 "	$MPB ip_nat_irc 2> /dev/null\n"
+ 			 "fi\n");
+ 
+-	fprintf (script, "if [ \"EXT_PPP\" = \"on\" ]; then\n"
++	fprintf (script, "if [ \"$EXT_PPP\" = \"on\" ]; then\n"
+ 			 "	$MPB bsd_comp 2> /dev/null\n"
+ 			 "	$MPB ppp_deflate 2> /dev/null\n"
+ 			 "fi\n\n");
+@@ -586,7 +586,7 @@
+ 			 "		$IPT -t mangle -A OUTPUT -p tcp -j TOS --dport 8080 --set-tos $TOSOPT\n"
+ 			 "	fi\n");
+ 
+-	fprintf (script, "	if [ \"$TOS_SERVER\" = \"on\" -a $mangle_supported ]; then\n"
++	fprintf (script, "	if [ \"$TOS_X\" = \"on\" -a $mangle_supported ]; then\n"
+ 			 "		# ToS: The X Window System\n"
+ 			 "		$IPT -t mangle -A OUTPUT -p tcp -j TOS --dport 22 --set-tos 0x10\n"
+ 			 "		$IPT -t mangle -A OUTPUT -p tcp -j TOS --dport 6000:6015 --set-tos 0x08\n"
+@@ -768,6 +768,9 @@
+ 	                 "if [ \"$NAT\" = \"on\" ]; then\n"
+ 	                 "	$IPT -A INPUT -i $INIF -d $INIP -j INBOUND # Check LAN to firewall (private ip) traffic\n"
+ 	                 "	$IPT -A INPUT -i $INIF -d $IP -j INBOUND   # Check LAN to firewall (public ip) traffic\n"
++			 "	if [ \"$DHCP_SERVER\" = \"on\" ]; then	   # DHCP requests are permitted from internal network\n"
++			 "		$IPT -A INPUT -i $INIF -p udp --dport 67:68 -d 255.255.255.255 -j INBOUND\n"
++			 "	fi\n"
+ 			 "	if [ \"$INBCAST\" != \"\" ]; then\n"
+ 			 "		$IPT -A INPUT -i $INIF -d $INBCAST -j INBOUND # Check LAN to firewall broadcast traffic\n"
+ 			 "	fi\n"
