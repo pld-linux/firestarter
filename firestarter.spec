@@ -1,5 +1,5 @@
 Summary:	A GNOME firewall tool
-Summary(pl):	Narzêdzie do konfiguracji firewalla dzia³aj±ce w ¶rodowisku GNOME
+Summary(pl.UTF-8):   NarzÄ™dzie do konfiguracji firewalla dziaÅ‚ajÄ…ce w Å›rodowisku GNOME
 Name:		firestarter
 Version:	1.0.3
 Release:	4
@@ -32,12 +32,12 @@ GNOME. Use it to quickly set up a secure environment using the
 firewall creation wizard, or use it's monitoring and administrating
 features with your old firewall scripts.
 
-%description -l pl
-FireStarter jest ³atwym w u¿yciu, lecz potê¿nym narzêdziem do
-konfiguracji firewalla dzia³aj±cym w ¶rodowisku GNOME. Mo¿esz go u¿yæ,
-by szybko stworzyæ bezpieczne ¶rodowisko korzystaj±c z kreatora
-tworzenia firewalla, lub skorzystaæ z jego mo¿liwo¶ci monitorowania i
-administrowania wraz z istniej±cymi regu³ami firewalla.
+%description -l pl.UTF-8
+FireStarter jest Å‚atwym w uÅ¼yciu, lecz potÄ™Å¼nym narzÄ™dziem do
+konfiguracji firewalla dziaÅ‚ajÄ…cym w Å›rodowisku GNOME. MoÅ¼esz go uÅ¼yÄ‡,
+by szybko stworzyÄ‡ bezpieczne Å›rodowisko korzystajÄ…c z kreatora
+tworzenia firewalla, lub skorzystaÄ‡ z jego moÅ¼liwoÅ›ci monitorowania i
+administrowania wraz z istniejÄ…cymi reguÅ‚ami firewalla.
 
 %prep
 %setup -q
