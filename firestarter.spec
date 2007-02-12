@@ -1,5 +1,5 @@
 Summary:	A GNOME firewall tool
-Summary(pl.UTF-8):   Narzędzie do konfiguracji firewalla działające w środowisku GNOME
+Summary(pl.UTF-8):	Narzędzie do konfiguracji firewalla działające w środowisku GNOME
 Name:		firestarter
 Version:	1.0.3
 Release:	4
