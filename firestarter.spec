@@ -2,10 +2,10 @@ Summary:	A GNOME firewall tool
 Summary(pl.UTF-8):	Narzędzie do konfiguracji firewalla działające w środowisku GNOME
 Name:		firestarter
 Version:	1.0.3
-Release:	5
+Release:	6
 License:	GPL
 Group:		X11/Applications/Networking
-Source0:	http://dl.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/firestarter/%{name}-%{version}.tar.gz
 # Source0-md5:	f46860a9e16dac4b693bd05f16370b03
 Source1:	%{name}.init
 Patch0:		%{name}-desktop.patch
@@ -21,9 +21,11 @@ BuildRequires:	libgnome-devel >= 2.0.0
 BuildRequires:	libgnomeui-devel >= 2.0.0
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 Requires(post,preun):	/sbin/chkconfig
 Requires:	iptables
+Requires:	rc-scripts
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -50,6 +52,7 @@ administrowania wraz z istniejącymi regułami firewalla.
 mv -f po/{no,nb}.po
 
 %build
+%{__intltoolize}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -68,7 +71,7 @@ install -d $RPM_BUILD_ROOT%{_sbindir}
 	Applicationsdir=%{_desktopdir}
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/firestarter
-install firestarter.pam $RPM_BUILD_ROOT%{_sysconfdir}/pam.d/firestarter
+cp -a firestarter.pam $RPM_BUILD_ROOT/etc/pam.d/firestarter
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/inbound
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound
@@ -92,16 +95,19 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/deny-service
 touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/deny-to
 touch $RPM_BUILD_ROOT%{_sysconfdir}/firestarter/outbound/setup
 
-mv $RPM_BUILD_ROOT%{_bindir}/firestarter $RPM_BUILD_ROOT%{_sbindir}
+mv $RPM_BUILD_ROOT{%{_bindir},%{_sbindir}}/firestarter
 
-echo -e "#!/bin/sh
+# TODO: use .desktop magic for this
+cat <<'EOF' > $RPM_BUILD_ROOT%{_bindir}/firestarter
+#!/bin/sh
 if [ -x %{_bindir}/gksudo ] ; then
-	gksudo -g %{_sbindir}/firestarter
+	exec gksudo -g %{_sbindir}/firestarter
 elif [ -x %{_bindir}/kdesu ] ; then
-	kdesu %{_sbindir}/firestarter
+	exec kdesu %{_sbindir}/firestarter
 else
-	%{_sbindir}/firestarter
-fi" > $RPM_BUILD_ROOT%{_bindir}/firestarter
+	exec %{_sbindir}/firestarter
+fi
+EOF
 
 [ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
 	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
@@ -114,18 +120,12 @@ rm -rf $RPM_BUILD_ROOT
 %gconf_schema_install firestarter.schemas
 %update_desktop_database_post
 /sbin/chkconfig --add firestarter
-if [ -f /var/lock/subsys/firestarter ]; then
-	/etc/rc.d/init.d/firestarter restart 1>&2
-else
-	echo "Run \"/etc/rc.d/init.d/firestarter start\" to start firestarter."
-fi
+%service firestarter restart
 
 %preun
-if [ $1 = 0 ]; then
-    %gconf_schema_uninstall firestarter.schemas
-	if [ -f /var/lock/subsys/firestarter ]; then
-		/etc/rc.d/init.d/firestarter stop 1>&2
-	fi
+if [ "$1" = 0 ]; then
+	%gconf_schema_uninstall firestarter.schemas
+	%service firestarter stop
 	/sbin/chkconfig --del firestarter
 fi
 
@@ -137,11 +137,12 @@ fi
 %doc README ChangeLog AUTHORS TODO CREDITS
 %attr(755,root,root) %{_bindir}/firestarter
 %attr(755,root,root) %{_sbindir}/firestarter
-%attr(754,root,root) /etc/rc.d/init.d/*
+%attr(754,root,root) /etc/rc.d/init.d/firestarter
 %config(noreplace) %verify(not md5 mtime size) /etc/pam.d/firestarter
+%{_sysconfdir}/gconf/schemas/firestarter.schemas
 %{_desktopdir}/firestarter.desktop
+%{_pixmapsdir}/firestarter.png
 %{_datadir}/%{name}
-%{_pixmapsdir}/*
 %dir %attr(700,root,root) %{_sysconfdir}/%{name}
 %dir %attr(700,root,root) %{_sysconfdir}/%{name}/inbound
 %dir %attr(700,root,root) %{_sysconfdir}/%{name}/outbound
@@ -154,4 +155,3 @@ fi
 %config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/non-routables
 %config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/sysctl-tuning
 %config(noreplace) %attr(440,root,root) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/user-*
-%{_sysconfdir}/gconf/schemas/*
