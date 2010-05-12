@@ -6,7 +6,7 @@ diff -Nur firestarter-1.0.3.orig/firestarter.desktop.in firestarter-1.0.3/firest
  Type=Application
  StartupNotify=true
 -Categories=System;Application;
-+Categories=GTK;GNOME;Utility;System;X-Administration;
++Categories=GTK;GNOME;Utility;System;Security;
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=firestarter
 +# vi: encoding=utf-8
