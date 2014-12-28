@@ -14,7 +14,7 @@ Patch2:		%{name}-script.patch
 URL:		http://www.fs-security.com/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gnome-common
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	intltool
