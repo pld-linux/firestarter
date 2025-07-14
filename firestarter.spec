@@ -46,9 +46,9 @@ administrowania wraz z istniejącymi regułami firewalla.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 
 mv -f po/{no,nb}.po
 
